@@ -222,6 +222,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         $buffer = $this->getDataBuffer();
         $retVal = false;
         if (!empty($buffer)) {
+
             $object = $this->getResource()->getObject();
             $retVal = $object->write($buffer, strlen($buffer));
         }
@@ -375,7 +376,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
             $this->appendPosition($length);
             return $length;
         } else {
-            throw new \Exception('dirty mode!!');
+            throw new \Exception('dirty mode.');
         }
     }
 

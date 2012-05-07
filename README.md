@@ -2,8 +2,6 @@ Rackspace Streamwrapper for PHP
 =========================
 
 
-This works, but this is not a stable version yet, some tests must still be written.
-
 [![Build Status](https://secure.travis-ci.org/liuggio/RackspaceCloudFilesStreamWrapper.png)](http://travis-ci.org/liuggio/RackspaceCloudFilesStreamWrapper)
 
 
