@@ -15,7 +15,7 @@ Requirements
 ------------
 
 - PHP > 5.3.0
-- Git installed on the machine running the PHP code
+
 
 Run tests
 ---------
