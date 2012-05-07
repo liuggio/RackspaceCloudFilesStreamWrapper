@@ -206,7 +206,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
             return true;
         }
 
-        return ($this->getPosition() >= $this->getResource()->getObject()->content_length);
+        return ((int) $this->getPosition() >= (int) $this->getResource()->getObject()->content_length);
     }
 
     /**
@@ -407,115 +407,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         return $this->statCurrentResource();
     }
 
-    /**
-     * get if the data status is in write mode
-     * 
-     * @return boolean
-     */
-    public function getOnWriteDataMode()
-    { 
-        return $this->onWriteDataMode;
-    }
 
-    /**
-     * set the data status
-     * 
-     */
-    public function setOnWriteDataMode($mode = true)
-    { 
-        $this->onWriteDataMode = $mode;
-        return $this;
-    }
-
-    /**
-     * Append some data to the current property data
-     * 
-     * @param string $data
-     * @return \Liuggio\RackspaceCloudFilesBundle\StreamWrapper\RackspaceStreamWrapper 
-     */
-    public function appendDataBuffer($data)
-    { 
-        if (is_null($this->dataBuffer)) {
-            $this->dataBuffer = $data;
-        } else {
-            $this->dataBuffer .= $data;
-        }
-        return $this;
-    }
-
-    /**
-     * sum the int of the position to the var given
-     * 
-     * @param type $length
-     * @return \Liuggio\RackspaceCloudFilesBundle\StreamWrapper\RackspaceStreamWrapper 
-     */
-    public function appendPosition($length)
-    { 
-        $this->dataPosition = (int) $this->dataPosition;
-        $this->dataPosition += (int) $length;
-        return $this;
-    }
-
-    /**
-     * get the current position
-     *  
-     * @return int
-     */
-    public function getPosition()
-    { 
-        return $this->dataPosition;
-    }
-
-    /**
-     * set the variable given to the dataPosition property
-     * 
-     * @param type $dataPosition 
-     */
-    public function setPosition($position)
-    { 
-        $position = (int) $position;
-        $this->dataPosition = $position;
-    }
-
-    /**
-     * set the variable given to the resource property
-     * 
-     * @param type $resource 
-     */
-    public function setResource($resource)
-    { 
-        $this->resource = $resource;
-    }
-
-    /**
-     * get the current resource
-     * 
-     * @return resource 
-     */
-    public function getResource()
-    { 
-        return $this->resource;
-    }
-
-    /**
-     * set the variable given to the buffer property
-     * 
-     * @param type dataBuffer 
-     */
-    public function setDataBuffer($data)
-    { 
-        $this->dataBuffer = $data;
-    }
-
-    /**
-     * get the current buffer
-     * 
-     * @return $dataBuffer 
-     */
-    public function getDataBuffer()
-    { 
-        return $this->dataBuffer;
-    }
 
     /**
      * reset the variable 
@@ -530,6 +422,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
 
     /**
      * creates the resource, the container and the object by the path given
+     *
      * @param string $path
      * @return boolean|\Liuggio\RackspaceCloudFilesBundle\StreamWrapper\RackspaceStreamWrapper 
      */
@@ -549,7 +442,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     }
 
     /**
-     *  @todo understand if is a dir  from the "Content-Type of "application/directory"
+     *  @todo better understanding if is a dir  from the "Content-Type of "application/directory"
      */
     private function statCurrentResource()
     { 
@@ -636,5 +529,116 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     {
         return self::$stream_wrapper_unregister;
     }
+
+    /**
+     * get if the data status is in write mode
+     *
+     * @return boolean
+     */
+    public function getOnWriteDataMode()
+    {
+        return $this->onWriteDataMode;
+    }
+
+    /**
+     * set the data status
+     *
+     */
+    public function setOnWriteDataMode($mode = true)
+    {
+        $this->onWriteDataMode = $mode;
+        return $this;
+    }
+
+    /**
+     * Append some data to the current property data
+     *
+     * @param string $data
+     * @return \Liuggio\RackspaceCloudFilesBundle\StreamWrapper\RackspaceStreamWrapper
+     */
+    public function appendDataBuffer($data)
+    {
+        if (is_null($this->dataBuffer)) {
+            $this->dataBuffer = $data;
+        } else {
+            $this->dataBuffer .= $data;
+        }
+        return $this;
+    }
+
+    /**
+     * sum the int of the position to the var given
+     *
+     * @param type $length
+     * @return \Liuggio\RackspaceCloudFilesBundle\StreamWrapper\RackspaceStreamWrapper
+     */
+    public function appendPosition($length)
+    {
+        $this->dataPosition = (int) $this->dataPosition;
+        $this->dataPosition += (int) $length;
+        return $this;
+    }
+
+    /**
+     * get the current position
+     *
+     * @return int
+     */
+    public function getPosition()
+    {
+        return $this->dataPosition;
+    }
+
+    /**
+     * set the variable given to the dataPosition property
+     *
+     * @param type $dataPosition
+     */
+    public function setPosition($position)
+    {
+        $position = (int) $position;
+        $this->dataPosition = $position;
+    }
+
+    /**
+     * set the variable given to the resource property
+     *
+     * @param type $resource
+     */
+    public function setResource($resource)
+    {
+        $this->resource = $resource;
+    }
+
+    /**
+     * get the current resource
+     *
+     * @return resource
+     */
+    public function getResource()
+    {
+        return $this->resource;
+    }
+
+    /**
+     * set the variable given to the buffer property
+     *
+     * @param type dataBuffer
+     */
+    public function setDataBuffer($data)
+    {
+        $this->dataBuffer = $data;
+    }
+
+    /**
+     * get the current buffer
+     *
+     * @return $dataBuffer
+     */
+    public function getDataBuffer()
+    {
+        return $this->dataBuffer;
+    }
+
 }
 

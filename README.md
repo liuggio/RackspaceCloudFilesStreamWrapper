@@ -1,10 +1,16 @@
 Rackspace Streamwrapper for PHP
 =========================
-still alpha.
+
 
 This works, but this is not a stable version yet, some tests must still be written.
 
 [![Build Status](https://secure.travis-ci.org/liuggio/RackspaceCloudFilesStreamWrapper.png)](http://travis-ci.org/liuggio/RackspaceCloudFilesStreamWrapper)
+
+
+Integration
+-----------
+
+see the Symfony2 Bundle that uses this library  https://github.com/liuggio/RackspaceCloudFilesBundle
 
 
 Requirements
