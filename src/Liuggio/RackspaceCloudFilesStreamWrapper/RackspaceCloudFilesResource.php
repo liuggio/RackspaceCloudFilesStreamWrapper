@@ -71,7 +71,9 @@ class RackspaceCloudFilesResource
     {
         $this->containerName = $containerName;
     }
-
+    /**
+     * @param $resourceName
+     */
     public function setResourceName($resourceName)
     {
         $this->resourceName = $resourceName;
@@ -125,6 +127,20 @@ class RackspaceCloudFilesResource
     public function getContainer()
     {
         return $this->container;
+    }
+    /**
+     * @return string
+     */
+    public function getCurrentPath()
+    {
+        return $this->currentPath;
+    }
+    /**
+     * @param $currentPath
+     */
+    public function setCurrentPath($currentPath)
+    {
+        $this->currentPath = $currentPath;
     }
 
 }
