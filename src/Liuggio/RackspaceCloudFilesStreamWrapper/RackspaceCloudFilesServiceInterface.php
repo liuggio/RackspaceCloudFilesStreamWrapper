@@ -42,5 +42,14 @@ interface RackspaceCloudFilesServiceInterface
      */
     public function getObjectByResource($resource);
 
+    /**
+     * try to guess the mimetype from a filename
+     *
+     * @abstract
+     * @param $filename
+     * @return string
+     */
+    public function guessFileType($filename);
+
 
 }

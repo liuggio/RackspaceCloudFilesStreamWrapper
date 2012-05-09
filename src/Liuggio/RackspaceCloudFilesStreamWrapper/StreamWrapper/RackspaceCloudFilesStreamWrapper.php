@@ -82,8 +82,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @return service 
      */
     public function getService()
-    {   
-
+    {
         return self::$service;
     }
 
@@ -145,7 +144,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @return bool
      */
     public function mkdir($path, $mode, $options)
-    { 
+    {
         if (!$this->initFromPath($path)) {
             return false;
         }
@@ -224,7 +223,9 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         if (!empty($buffer)) {
 
             $object = $this->getResource()->getObject();
-            $retVal = $object->write($buffer, strlen($buffer));
+            $mimetype = $this->getService()->guessFileType($this->getResource()->getResourceName());
+            $object->content_type = $mimetype;
+            $buffer = $object->write($buffer, strlen($buffer));
         }
         $this->setDataBuffer(null);
         return $retVal;
@@ -433,7 +434,6 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         $this->setDataBuffer(null);
 
         $resource = $this->getService()->createResourceFromPath($path);
-
         if (!$resource) {
             return false;
         }
