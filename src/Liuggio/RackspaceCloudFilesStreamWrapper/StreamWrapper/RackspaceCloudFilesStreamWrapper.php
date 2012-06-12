@@ -3,7 +3,7 @@
 namespace Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapper;
 
 use Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapperInterface;
-
+use Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException;
 
 /**
  * Description of RackspaceStreamWrapper
@@ -88,7 +88,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
 
     public function dir_closedir()
     { 
-        throw new \NotImplementedException(__FUNCTION__);
+        throw new NotImplementedException(__FUNCTION__);
 //        $array = array();
 //        $this->setContainerList($array);
         return true;
@@ -102,7 +102,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      */
     public function dir_opendir($path, $options)
     {  //@todo with nested list object with paths
-        throw new \NotImplementedException(__FUNCTION__);
+        throw new NotImplementedException(__FUNCTION__);
         $retVal = false;
         if ($this->initFromPath($path) && $this->getResource()->getContainer()) {
             $this->containerList = $this->getResource()->getContainer()->list_objects();
@@ -117,7 +117,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      */
     public function dir_readdir()
     {   // @todo with nested
-        throw new \NotImplementedException(__FUNCTION__);
+        throw new NotImplementedException(__FUNCTION__);
         $object = current($this->containerList);
         if ($object !== false) {
             next($this->containerList);
@@ -131,7 +131,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      */
     public function dir_rewinddir()
     {    //@todo with nested
-        throw new \NotImplementedException(__FUNCTION__);
+        throw new NotImplementedException(__FUNCTION__);
         reset($this->containerList);
         return true;
     }
@@ -161,7 +161,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      */
     public function rename($path_from, $path_to)
     {    // @todo
-        throw new \NotImplementedException(__FUNCTION__);
+        throw new NotImplementedException(__FUNCTION__);
         return false;
     }
 
@@ -173,7 +173,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      */
     public function rmdir($path, $options)
     {    // @todo
-        throw new \NotImplementedException(__FUNCTION__);
+        throw new NotImplementedException(__FUNCTION__);
         return false;
     }
 
@@ -209,7 +209,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     }
 
     /**
-     * 
+     * always true
      * @return bool
      */
     public function stream_flush()
@@ -219,15 +219,22 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         }
 
         $buffer = $this->getDataBuffer();
-        $retVal = false;
+        $bufferWritten = $buffer;
+        $retVal = true;
         if (!empty($buffer)) {
 
             $object = $this->getResource()->getObject();
             $mimetype = $this->getService()->guessFileType($this->getResource()->getResourceName());
             $object->content_type = $mimetype;
-            $buffer = $object->write($buffer, strlen($buffer));
+            $bufferWritten = $object->write($buffer, strlen($buffer));
         }
-        $this->setDataBuffer(null);
+
+        if (strlen($bufferWritten) ==  strlen($buffer)) {
+            $this->setDataBuffer(null);
+        } else {
+            $this->setDataBuffer($buffer);
+        }
+
         return $retVal;
     }
 

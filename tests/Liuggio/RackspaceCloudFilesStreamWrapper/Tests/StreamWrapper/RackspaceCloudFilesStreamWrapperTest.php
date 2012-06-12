@@ -230,15 +230,26 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
         $resource->setContainerName($resourceContainerName);
         $resource->setObject($object);
 
+        $service =  $this->generateMockService(array('guessFileType'));
+        $service->expects($this->any())
+            ->method('guessFileType')
+            ->will($this->returnValue('mimetypeTest'));
+
+
         //mocking sw
-        $streamWrapper = $this->getMock($this->getStreamWrapperClass(), array('getDataBuffer', 'getResource'));
+        $streamWrapper = $this->getMock($this->getStreamWrapperClass(), array('getDataBuffer', 'getResource','getService'));
         $streamWrapper->expects($this->any())
             ->method('getDataBuffer')
             ->will($this->returnValue($objectDataBuffer));
         $streamWrapper->expects($this->any())
             ->method('getResource')
             ->will($this->returnValue($resource));
+        $streamWrapper->expects($this->any())
+            ->method('getService')
+            ->will($this->returnValue($service));
 
+
+        $streamWrapper->setService($streamWrapper);
         // the call
         $ret = $streamWrapper->stream_flush();
         //asserting

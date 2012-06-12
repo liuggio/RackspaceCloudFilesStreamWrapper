@@ -1,5 +1,5 @@
 {
-    "name":        "liuggio/RackspaceCloudFilesStreamWrapper",
+    "name":        "liuggio/rackspace-cloud-files-streamwrapper",
     "description": "Rackspace Cloud Files Streamwrapper for PHP",
     "keywords":    ["rackspace", "streamwrapper", "cloud", "rackspace cloud files"],
     "homepage":    "https://github.com/liuggio/RackspaceCloudFilesStreamWrapper",
@@ -10,6 +10,10 @@
             "name":     "Liuggio",
             "email":    "liuggio@gmail.com",
             "homepage": "https://github.com/liuggio"
+        },
+        {
+            "name": "tvision contributions",
+            "homepage": "https://github.com/tvision"
         }
     ],
     "require":     {
@@ -19,5 +23,6 @@
         "psr-0": {
             "Liuggio\\RackspaceCloudFilesStreamWrapper": "src/Liuggio"
         }
-    }
+    },
+    "target-dir": "Liuggio/RackspaceCloudFilesStreamWrapper"
 }
