@@ -10,17 +10,6 @@ Integration
 
 see the Symfony2 Bundle that uses this library  https://github.com/liuggio/RackspaceCloudFilesBundle
 
-Composer
--------
-
-Just add this line to your composer
-
-```json
-
-	"liuggio/rackspace-cloud-files-streamwrapper": "dev-master",
-
-```
-
 
 Requirements
 ------------
