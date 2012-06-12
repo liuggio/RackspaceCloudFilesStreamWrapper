@@ -21,8 +21,8 @@
     },
     "autoload":    {
         "psr-0": {
-            "Liuggio\\RackspaceCloudFilesStreamWrapper": "src/Liuggio"
+            "Liuggio\\RackspaceCloudFilesStreamWrapper": "src"
         }
     },
-    "target-dir": "Liuggio/RackspaceCloudFilesStreamWrapper"
+    "target-dir": ""
 }
