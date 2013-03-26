@@ -2,6 +2,8 @@
 
 namespace  Liuggio\RackspaceCloudFilesStreamWrapper;
 
+use \OpenCloud\ObjectStore\Container;
+
 /**
  * Description of RackspaceCloudFilesServiceInterface
  *
@@ -16,11 +18,12 @@ interface RackspaceCloudFilesServiceInterface
     public function apiGetContainer($container_name);
 
     /**
-     * @param $container
-     * @param string$object_name
-     * @return \stdClass
+     * @param Container $container
+     * @param $objectData
+     *
+     * @return mixed
      */
-    public function apiGetObjectByContainer($container, $object_name);
+    public function apiGetObjectByContainer(Container $container, $objectData);
     /**
      * 
      * @param string $path
