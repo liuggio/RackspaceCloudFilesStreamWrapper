@@ -120,13 +120,32 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
         $resourceContainerName = 'liuggio_assetic';
         $path = 'rscf://' . $resourceContainerName . '/' . $resourceName;
         // assert that delete_object is called with the correct name
+
+        $mockedCollection = $this->getMock('Collection',array('Size','First'));
         $phpunit = $this;
-        $container = $this->getMock("\StdClass", array('delete_object'));
-        $container->expects($this->any())
-            ->method('delete_object')
-            ->will($this->returnCallback(function ($filename) use ($phpunit, $resourceName) {
-                $phpunit->assertEquals($resourceName, $filename);
-                return true;
+        $container = $this->getMock("\StdClass", array('ObjectList'));
+        $container->expects($this->once())
+            ->method('ObjectList')
+            ->will($this->returnCallback(function ($filter) use ($phpunit, $resourceName, $mockedCollection) {
+
+                $phpunit->assertArrayHasKey('limit',$filter);
+                $phpunit->assertArrayHasKey('prefix', $filter);
+
+                $phpunit->assertEquals($resourceName, $filter['prefix']);
+
+                $mockedCollection->expects($phpunit->once())
+                    ->method('Size')
+                    ->will($phpunit->returnValue(1));
+
+                $mockedObject = $phpunit->getMock('Object',array('Delete'));
+                $mockedObject->expects($phpunit->once())
+                    ->method('Delete');
+
+                $mockedCollection->expects($phpunit->once())
+                    ->method('First')
+                    ->will($phpunit->returnValue($mockedObject));
+
+                return $mockedCollection;
         }));
 
 
@@ -215,15 +234,18 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
         $phpunit = $this;
         $objectDataBuffer = '1234567890';
         // creating the object
-        $object = $this->getMock("\StdClass", array('write'));
+        $object = $this->getMock("\StdClass", array('setData','Create'));
         //asserting that the object -> write is called correctly
         $object->expects($this->any())
-            ->method('write')
-            ->will($this->returnCallback(function ($buffer, $len) use ($phpunit, $objectDataBuffer) {
+            ->method('setData')
+            ->will($this->returnCallback(function ($buffer) use ($phpunit, $objectDataBuffer) {
                 $phpunit->assertEquals($buffer, $objectDataBuffer);
-                $phpunit->assertEquals($len, strlen($objectDataBuffer));
+                //$phpunit->assertEquals($len, strlen($objectDataBuffer));
                 return true;
         }));
+
+        $object->expects($this->once())
+            ->method('Create');
 
         $resource = new RackspaceCloudFilesResource();
         $resource->setResourceName($resourceName);
@@ -261,10 +283,6 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
     public function testMkdir() {
 
         //testing that the API create_paths is called
-
-
-        // ($path, $mode, $options)
-
         //we want to test that the file is unlinked
         $resourceName = 'js_75a9295_bootstrap-modal_3.js';
         $resourceContainerName = 'liuggio_assetic';
