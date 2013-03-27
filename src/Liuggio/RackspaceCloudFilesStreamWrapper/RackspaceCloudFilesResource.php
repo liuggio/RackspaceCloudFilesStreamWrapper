@@ -30,7 +30,7 @@ class RackspaceCloudFilesResource
     /**
      * Take the container and the resource name from the 
      * 
-     * @param type $path 
+     * @param string $path
      * @return RSCFResource|false
      */
     public function initResourceByPath($path)
