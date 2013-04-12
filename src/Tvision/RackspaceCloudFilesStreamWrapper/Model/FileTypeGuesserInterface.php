@@ -1,5 +1,5 @@
 <?php
-namespace Liuggio\RackspaceCloudFilesStreamWrapper\Model;
+namespace Tvision\RackspaceCloudFilesStreamWrapper\Model;
 /**
  *
  */

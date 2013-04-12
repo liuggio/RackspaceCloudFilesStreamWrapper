@@ -24,7 +24,7 @@
 function namespace_autoload($class)
 {
 
-    if (strpos($class, 'Liuggio') === 0) {
+    if (strpos($class, 'Tvision') === 0) {
         $file = __DIR__.'/src/'.str_replace('\\', '/', $class) . '.php';
 
         if (file_exists($file) && is_readable($file)) {

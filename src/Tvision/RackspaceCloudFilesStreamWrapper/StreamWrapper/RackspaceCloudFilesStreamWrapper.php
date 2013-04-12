@@ -1,10 +1,10 @@
 <?php
 
-namespace Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapper;
+namespace Tvision\RackspaceCloudFilesStreamWrapper\StreamWrapper;
 
-use Liuggio\RackspaceCloudFilesStreamWrapper\Model\StreamWrapperInterface;
-use Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException;
-use Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException;
+use Tvision\RackspaceCloudFilesStreamWrapper\Model\StreamWrapperInterface;
+use Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException;
+use Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException;
 
 /**
  * Description of RackspaceStreamWrapper
@@ -96,7 +96,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path
      * @param $options
      *
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
+     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
      */
     public function dir_opendir($path, $options)
     {
@@ -105,7 +105,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
 
 
     /**
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
+     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
      */
     public function dir_readdir()
     {
@@ -114,7 +114,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
 
 
     /**
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
+     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
      */
     public function dir_rewinddir()
     {
@@ -138,10 +138,10 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path_to
      * @return bool
      *
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
      */
     public function rename($path_from, $path_to)
-    {    // @todo
+    { 
         if( $this->unlink($path_from) ) {
             $new_resource = $this->getService()->createResourceFromPath($path_to);
         
@@ -161,7 +161,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path
      * @param $options
      *
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
      */
     public function rmdir($path, $options)
     {

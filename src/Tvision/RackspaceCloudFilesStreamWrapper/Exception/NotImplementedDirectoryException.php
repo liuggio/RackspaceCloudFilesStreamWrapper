@@ -1,6 +1,6 @@
 <?php
 
-namespace Liuggio\RackspaceCloudFilesStreamWrapper\Exception;
+namespace Tvision\RackspaceCloudFilesStreamWrapper\Exception;
 
 
 class NotImplementedDirectoryException extends NotImplementedException

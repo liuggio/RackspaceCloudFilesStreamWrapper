@@ -1,7 +1,7 @@
 <?php
-namespace Liuggio\RackspaceCloudFilesStreamWrapper\Service;
+namespace Tvision\RackspaceCloudFilesStreamWrapper\Service;
 
-use Liuggio\RackspaceCloudFilesStreamWrapper\Model\FileTypeGuesserInterface;
+use Tvision\RackspaceCloudFilesStreamWrapper\Model\FileTypeGuesserInterface;
 
 /**
  *

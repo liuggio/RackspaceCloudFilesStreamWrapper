@@ -1,11 +1,11 @@
 <?php
 
-namespace Liuggio\RackspaceCloudFilesStreamWrapper\Service;
+namespace Tvision\RackspaceCloudFilesStreamWrapper\Service;
 
-use Liuggio\RackspaceCloudFilesStreamWrapper\Service\RackspaceApi;
+use Tvision\RackspaceCloudFilesStreamWrapper\Service\RackspaceApi;
 use OpenCloud\ObjectStore\Container;
 use OpenCloud\ObjectStore\DataObject;
-use Liuggio\RackspaceCloudFilesStreamWrapper\Model\RackspaceCloudFilesServiceInterface;
+use Tvision\RackspaceCloudFilesStreamWrapper\Model\RackspaceCloudFilesServiceInterface;
 
 /**
  * Description of RackSpaceObject
@@ -31,7 +31,9 @@ class RSCFService implements RackspaceCloudFilesServiceInterface
         $this->rackspaceService = $rackspaceService;
         $this->streamWrapperClass = $stream_wrapper_class;
         $this->resource_class = $resource_entity_class;
-        $this->setFileTypeGuesser($file_type_guesser);
+        if ($file_type_guesser ){
+            $this->setFileTypeGuesser($file_type_guesser);    
+        }
     }
 
     /**
@@ -166,8 +168,9 @@ class RSCFService implements RackspaceCloudFilesServiceInterface
      */
     public function guessFileType($filename)
     {
+        
         $function = $this->file_type_guesser;
-        return $function::guessByFileName($filename);
+        return $function::guessByFileName($filename);    
     }
 
     public function getRackspaceService()

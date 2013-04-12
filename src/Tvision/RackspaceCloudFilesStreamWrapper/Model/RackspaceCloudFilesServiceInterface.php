@@ -1,6 +1,6 @@
 <?php
 
-namespace  Liuggio\RackspaceCloudFilesStreamWrapper\Model;
+namespace  Tvision\RackspaceCloudFilesStreamWrapper\Model;
 
 use \OpenCloud\ObjectStore\Container;
 

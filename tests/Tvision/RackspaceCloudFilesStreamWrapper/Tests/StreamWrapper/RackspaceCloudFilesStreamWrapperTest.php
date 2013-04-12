@@ -1,9 +1,9 @@
 <?php
 
-namespace Liuggio\RackspaceCloudFilesStreamWrapper\Tests\StreamWrapper;
+namespace Tvision\RackspaceCloudFilesStreamWrapper\Tests\StreamWrapper;
 
-use \Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapper\RackspaceCloudFilesStreamWrapper;
-use \Liuggio\RackspaceCloudFilesStreamWrapper\Model\RackspaceCloudFilesResource;
+use \Tvision\RackspaceCloudFilesStreamWrapper\StreamWrapper\RackspaceCloudFilesStreamWrapper;
+use \Tvision\RackspaceCloudFilesStreamWrapper\Model\RackspaceCloudFilesResource;
 
 
 class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
@@ -12,7 +12,7 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
         //replace built-in function
         $phpunit = $this;
         $protocolName = 'rscf-test';
-        $classNameToAssert = 'Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapper\RackspaceCloudFilesStreamWrapper';
+        $classNameToAssert = 'Tvision\RackspaceCloudFilesStreamWrapper\StreamWrapper\RackspaceCloudFilesStreamWrapper';
         $new_stream_wrapper_register = function ($protocol, $classname, $flags = null) use ($phpunit, $protocolName, $classNameToAssert) {
             $phpunit->assertEquals($protocol, $protocolName);
             $phpunit->assertEquals($classname, $classNameToAssert);
@@ -51,17 +51,17 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
 
     public function getResourceClass()
     {
-        return '\\Liuggio\\RackspaceCloudFilesStreamWrapper\\Model\\RackspaceCloudFilesResource';
+        return '\\Tvision\\RackspaceCloudFilesStreamWrapper\\Model\\RackspaceCloudFilesResource';
     }
 
     public function getStreamWrapperClass()
     {
-        return '\\Liuggio\\RackspaceCloudFilesStreamWrapper\\StreamWrapper\\RackspaceCloudFilesStreamWrapper';
+        return '\\Tvision\\RackspaceCloudFilesStreamWrapper\\StreamWrapper\\RackspaceCloudFilesStreamWrapper';
     }
 
     public function getRSCFServiceClass()
     {
-        return '\\Liuggio\\RackspaceCloudFilesStreamWrapper\\RSCFService';
+        return '\\Tvision\\RackspaceCloudFilesStreamWrapper\\RSCFService';
     }
 
      private function generateMockService($functions)
@@ -380,7 +380,7 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
 
 
     /**
-     * @expectedException \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
+     * @expectedException \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
      */
     public function testNotImplementedDirectoryMethods()
     {
