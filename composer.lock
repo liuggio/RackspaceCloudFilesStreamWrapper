@@ -1,0 +1,56 @@
+{
+    "hash": "6c789a4e4ca64b8eac7b3d88915131ab",
+    "packages": [
+        {
+            "name": "rackspace/php-opencloud",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rackspace/php-opencloud.git",
+                "reference": "c3850c5e7d749357873f0ebf6bcde9692f33049c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/c3850c5e7d749357873f0ebf6bcde9692f33049c",
+                "reference": "c3850c5e7d749357873f0ebf6bcde9692f33049c",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "lib/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Rackspace open cloud php library",
+            "keywords": [
+                "cloudfiles",
+                "opencloud"
+            ],
+            "time": "2013-03-30 12:53:51"
+        }
+    ],
+    "packages-dev": [
+
+    ],
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "rackspace/php-opencloud": 20
+    },
+    "platform": {
+        "php": ">=5.3.0"
+    },
+    "platform-dev": [
+
+    ]
+}

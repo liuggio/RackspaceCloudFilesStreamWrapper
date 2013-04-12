@@ -1,6 +1,6 @@
 <?php
 
-namespace  Liuggio\RackspaceCloudFilesStreamWrapper;
+namespace  Liuggio\RackspaceCloudFilesStreamWrapper\Model;
 
 /**
  *

@@ -3,9 +3,7 @@
 namespace Liuggio\RackspaceCloudFilesStreamWrapper\Tests\StreamWrapper;
 
 use \Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapper\RackspaceCloudFilesStreamWrapper;
-use \Liuggio\RackspaceCloudFilesStreamWrapper\RackspaceCloudFilesResource;
-
-
+use \Liuggio\RackspaceCloudFilesStreamWrapper\Model\RackspaceCloudFilesResource;
 
 
 class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
@@ -51,6 +49,10 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
         RackspaceCloudFilesStreamWrapper::$protocolName = $old_protocolName;
     }
 
+    public function getResourceClass()
+    {
+        return '\\Liuggio\\RackspaceCloudFilesStreamWrapper\\Model\\RackspaceCloudFilesResource';
+    }
 
     public function getStreamWrapperClass()
     {
@@ -317,5 +319,87 @@ class RackspaceCloudFilesStreamWrapperTest extends \PHPUnit_Framework_TestCase
 
         $this->assertTrue($ret !== false);
 
+    }
+
+    private function getObjectStoreWithOneObject()
+    {
+        $object = $this->getMock('\OpenCloud\DataObject', array('Delete'),array(),'', false);
+
+        $objectCollection = $this->getMock('\OpenCloud\Collection', array('Size','First'),array(),'', false); 
+        $objectCollection->expects($this->once())
+            ->method('Size')
+            ->will($this->returnValue(1));
+        $objectCollection->expects($this->once())
+            ->method('First')
+            ->will($this->returnValue($object));
+
+         
+        
+        $mockedObjectStoreWithOneObject = $this->getMock('\OpenCloud\ObjectStore', array('ObjectList'),array(),'', false);
+        $mockedObjectStoreWithOneObject->expects($this->any())
+            ->method('ObjectList')
+            ->will($this->returnValue($objectCollection));
+
+        return $mockedObjectStoreWithOneObject;
+    }
+
+
+    public function test_rename()
+    {
+        $streamWrapperClass = $this->getStreamWrapperClass();
+        $streamWrapper = new $streamWrapperClass();
+        $resourceClass = $this->getResourceClass();
+        $resourceContainerName = 'test_container';
+
+        $path_from  = 'rscf://' . $resourceContainerName . '/images/old_image.gif';
+        $path_to    = 'rscf://' . $resourceContainerName . '/images/new_image.gif';
+
+        $mockedObjectStoreWithOneObject = $this->getObjectStoreWithOneObject();
+
+        $resourceFrom   = new $resourceClass();
+        $resourceFrom->setContainer($mockedObjectStoreWithOneObject);
+        $resourceFrom->setCurrentPath($path_from);
+
+        $resourceTo   = new $resourceClass();
+        $resourceTo->setCurrentPath($path_to);
+
+        $streamWrapper->setService($service = $this->generateMockService(array('createResourceFromPath')));
+        $service->expects($this->at(0))
+            ->method('createResourceFromPath')
+            ->with($this->equalTo($path_from))
+            ->will($this->returnValue($resourceFrom));
+        $service->expects($this->at(1))
+            ->method('createResourceFromPath')
+            ->with($this->equalTo($path_to))
+            ->will($this->returnValue($resourceTo));
+
+        $streamWrapper->rename($path_from, $path_to);
+
+        $this->assertEquals($path_to, $streamWrapper->getResource()->getCurrentPath());
+    }
+
+
+    /**
+     * @expectedException \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
+     */
+    public function testNotImplementedDirectoryMethods()
+    {
+        $methods = array(
+            'dir_closedir' => array(),
+            'dir_opendir' => array(''),
+            'dir_readdir' => array(),
+            'dir_rewinddir' => array(),
+            'mkdir' => array('','',''),
+            'rmdir' => array('','','')
+            );
+        
+        $class = $this->getStreamWrapperClass();
+        $streamWrapper = new $class();
+
+        foreach ($methods as $method => $params) {
+             
+             call_user_func_array($streamWrapper->$method(), $params);    
+                
+        } 
     }
 }
