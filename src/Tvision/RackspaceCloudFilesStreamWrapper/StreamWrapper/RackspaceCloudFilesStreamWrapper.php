@@ -2,9 +2,9 @@
 
 namespace Tvision\RackspaceCloudFilesStreamWrapper\StreamWrapper;
 
-use Tvision\RackspaceCloudFilesStreamWrapper\Model\StreamWrapperInterface;
-use Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException;
-use Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException;
+use Tvision\RackspaceCloudFilesStreamWrapper\Model\StreamWrapperInterface,
+    Tvision\RackspaceCloudFilesStreamWrapper\Exceptions\NotImplementedException,
+    Tvision\RackspaceCloudFilesStreamWrapper\Exceptions\NotImplementedDirectoryException;
 
 /**
  * Description of RackspaceStreamWrapper
@@ -21,8 +21,6 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     private $dataBuffer = null;
     private $dataPosition = 0;
     private $onWriteDataMode = false;
-    private $containerList = array();
-
 
     static $stream_wrapper_register = 'stream_wrapper_register';
     static $stream_wrapper_unregister = 'stream_wrapper_unregister';
@@ -31,9 +29,9 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     /**
      * Registers the stream wrapper to handle the specified protocolName
      *
+     * @throws \RuntimeException
      * @param String $protocol_name Default is rscf
      */
-
     public static function registerStreamWrapperClass($protocol_name = 'rscf')
     { 
         self::$protocolName = $protocol_name;
@@ -69,6 +67,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     }
 
     /**
+     * Set the RackspaceApi Service.
      *
      * @param $service 
      */
@@ -78,6 +77,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     }
 
     /**
+     * Get the RackspaceApi Service.
      *
      * @return service 
      */
@@ -86,6 +86,10 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         return self::$service;
     }
 
+    /**
+     *
+     * @throws NotImplementedDirectoryException
+     */
     public function dir_closedir()
     { 
         throw new NotImplementedDirectoryException(__FUNCTION__);
@@ -96,7 +100,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path
      * @param $options
      *
-     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
+     * @throws NotImplementedDirectoryException
      */
     public function dir_opendir($path, $options)
     {
@@ -105,7 +109,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
 
 
     /**
-     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
+     * @throws NotImplementedDirectoryException
      */
     public function dir_readdir()
     {
@@ -114,7 +118,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
 
 
     /**
-     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedDirectoryException
+     * @throws NotImplementedDirectoryException
      */
     public function dir_rewinddir()
     {
@@ -138,7 +142,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path_to
      * @return bool
      *
-     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws NotImplementedException
      */
     public function rename($path_from, $path_to)
     { 
@@ -161,7 +165,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path
      * @param $options
      *
-     * @throws \Tvision\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws NotImplementedException
      */
     public function rmdir($path, $options)
     {
@@ -541,7 +545,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         return self::$stream_wrapper_register;
     }
     /**
-     * @param $stream_wrapper_register
+     * @param $stream_wrapper_unregister
      */
     public static function setStreamWrapperUnregisterFunction($stream_wrapper_unregister)
     {
