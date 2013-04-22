@@ -1,5 +1,5 @@
 {
-    "name":        "tvision/rackspace-cloud-files-streamwrapper",
+    "name":        "liuggio/rackspace-cloud-files-streamwrapper",
     "description": "Rackspace Cloud Files Streamwrapper for PHP",
     "keywords":    ["rackspace", "streamwrapper", "cloud", "rackspace cloud files"],
     "homepage":    "https://github.com/liuggio/RackspaceCloudFilesStreamWrapper",

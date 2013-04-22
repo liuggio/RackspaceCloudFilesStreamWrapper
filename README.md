@@ -1,4 +1,4 @@
-Rackspace Streamwrapper for PHP
+Rackspace Cloud Files Streamwrapper Lib for PHP
 =========================
 
 
@@ -8,7 +8,7 @@ Rackspace Streamwrapper for PHP
 Integration
 -----------
 
-see the Symfony2 Bundle that uses this library  https://github.com/liuggio/RackspaceCloudFilesBundle
+see the Symfony2 Bundle that uses this library  https://github.com/tvision/RackspaceCloudFilesBundle
 
 Composer
 -------
@@ -17,10 +17,9 @@ Just add this line to your composer
 
 ```json
 
-	"liuggio/rackspace-cloud-files-streamwrapper": "dev-master",
+    "liuggio/rackspace-cloud-files-streamwrapper": ">=2.2",
 
 ```
-
 
 Requirements
 ------------
@@ -32,7 +31,8 @@ Run tests
 ---------
 
 1. clone the repository
-2. run `phpunit` from within the cloned project folder
+2. run `composer` install 
+3. run `phpunit` from within the cloned project folder
 
 Please note that the library has been tested on a Mac OS X 10.7 with the bundled PHP 5.3.6 (git version 1.7.6), on several Ubuntu Linux installations and on Windows Vista running PHP 5.3.7 (1.7.6.msysgit.0). Due to currently unknown reasons the test run a bit unstable on Windows. All tests should be *green* but during cleanup there may be the possibility that some access restrictions randomly kick in and prevent the cleanup code from removing the test directories. 
 
@@ -67,8 +67,6 @@ Better handling of directory :
 -   public function dir_readdir()  //nested list object with paths
 
 -   public function dir_rewinddir()  //nested list object with paths
-
--   public function rename($path_from, $path_to)  //nested list object with paths
 
 -   public function rmdir($path, $options)  //nested list object with paths
 
