@@ -6,11 +6,11 @@ Rackspace Cloud Files bundle is a simple and easy way to use [RackspaceCloudFile
 This Bundle borns as fork of the escapestudios/EscapeRackspaceCloudFilesBundle, now these two bundles are very different.
 
 [![Build Status](https://secure.travis-ci.org/tvision/RackspaceCloudFilesStreamWrapper.png)](http://travis-ci.org/tvision/RackspaceCloudFilesStreamWrapper)
-
+[![Total Downloads](https://poser.pugx.org/tvision/rackspace-cloud-files-streamwrapper/downloads.png)](https://packagist.org/packages/tvision/rackspace-cloud-files-streamwrapper)
+[![Latest Stable Version](https://poser.pugx.org/tvision/rackspace-cloud-files-streamwrapper/v/stable.png)](https://packagist.org/packages/tvision/rackspace-cloud-files-streamwrapper)
 see the blog post for more detail
 
 [http://www.welcometothebundle.com/symfony2-assets-on-rackspace-cloud-files/](http://www.welcometothebundle.com/symfony2-assets-on-rackspace-cloud-files)
-
 
 Installation (old school)
 -------------------------------
