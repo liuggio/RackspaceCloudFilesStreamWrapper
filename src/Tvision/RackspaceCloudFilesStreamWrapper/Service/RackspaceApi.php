@@ -81,7 +81,7 @@ class RackspaceApi
     /**
      * Get the ObjectStore.
      *
-     * @return \OpenCloud\ObjectStore
+     * @return \OpenCloud\ObjectStore\Service
      */
     public function getObjectStore()
     {
@@ -94,7 +94,7 @@ class RackspaceApi
      *
      * @param String|null $container_name
      *
-     * @return \OpenCloud\ObjectStore\Container
+     * @return \OpenCloud\ObjectStore\Resource\Container
      */
     public function getContainer($container_name = null)
     {
