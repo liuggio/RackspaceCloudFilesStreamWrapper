@@ -1,5 +1,9 @@
 {
-    "hash": "6c789a4e4ca64b8eac7b3d88915131ab",
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "02c76100b9532065c977aca17efd3128",
     "packages": [
         {
             "name": "rackspace/php-opencloud",
@@ -7,12 +11,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/rackspace/php-opencloud.git",
-                "reference": "c3850c5e7d749357873f0ebf6bcde9692f33049c"
+                "reference": "b4724adfd6c73832d66fcbafb4737d70363aba17"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/c3850c5e7d749357873f0ebf6bcde9692f33049c",
-                "reference": "c3850c5e7d749357873f0ebf6bcde9692f33049c",
+                "url": "https://api.github.com/repos/rackspace/php-opencloud/zipball/b4724adfd6c73832d66fcbafb4737d70363aba17",
+                "reference": "b4724adfd6c73832d66fcbafb4737d70363aba17",
                 "shasum": ""
             },
             "require": {
@@ -29,12 +33,22 @@
             "license": [
                 "MIT"
             ],
+            "authors": [
+                {
+                    "name": "Glen Campbell",
+                    "email": "glen.campbell@rackspace.com"
+                },
+                {
+                    "name": "Jamie Hannaford",
+                    "email": "jamie@limetree.org"
+                }
+            ],
             "description": "Rackspace open cloud php library",
             "keywords": [
                 "cloudfiles",
                 "opencloud"
             ],
-            "time": "2013-03-30 12:53:51"
+            "time": "2013-09-12 07:55:34"
         }
     ],
     "packages-dev": [

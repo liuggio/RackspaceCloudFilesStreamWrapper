@@ -3,8 +3,8 @@
 namespace Tvision\RackspaceCloudFilesStreamWrapper\Service;
 
 use Tvision\RackspaceCloudFilesStreamWrapper\Service\RackspaceApi;
-use OpenCloud\ObjectStore\Container;
-use OpenCloud\ObjectStore\DataObject;
+use OpenCloud\ObjectStore\Resource\Container;
+use OpenCloud\ObjectStore\Resource\DataObject;
 use Tvision\RackspaceCloudFilesStreamWrapper\Model\RackspaceCloudFilesServiceInterface;
 
 /**

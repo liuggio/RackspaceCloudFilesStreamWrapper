@@ -228,6 +228,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
             $mimetype = $this->getService()->guessFileType($this->getResource()->getResourceName());
             $object->content_type = $mimetype;
             $object->setData($buffer);
+            $object->extra_headers['Content-Type'] = $mimetype;
             $object->Create();
         }
 
