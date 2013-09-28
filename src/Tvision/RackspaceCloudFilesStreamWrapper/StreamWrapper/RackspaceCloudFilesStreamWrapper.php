@@ -1,9 +1,10 @@
 <?php
 
-namespace Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapper;
+namespace Tvision\RackspaceCloudFilesStreamWrapper\StreamWrapper;
 
-use Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapperInterface;
-use Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException;
+use Tvision\RackspaceCloudFilesStreamWrapper\Model\StreamWrapperInterface,
+    Tvision\RackspaceCloudFilesStreamWrapper\Exceptions\NotImplementedException,
+    Tvision\RackspaceCloudFilesStreamWrapper\Exceptions\NotImplementedDirectoryException;
 
 /**
  * Description of RackspaceStreamWrapper
@@ -20,19 +21,17 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     private $dataBuffer = null;
     private $dataPosition = 0;
     private $onWriteDataMode = false;
-    private $containerList = array();
-
 
     static $stream_wrapper_register = 'stream_wrapper_register';
     static $stream_wrapper_unregister = 'stream_wrapper_unregister';
 
 
-    /*
+    /**
      * Registers the stream wrapper to handle the specified protocolName
      *
-     * @param  string $schema Default is rscf
+     * @throws \RuntimeException
+     * @param String $protocol_name Default is rscf
      */
-
     public static function registerStreamWrapperClass($protocol_name = 'rscf')
     { 
         self::$protocolName = $protocol_name;
@@ -55,7 +54,6 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     /**
      * Registers the stream wrapper to handle the specified protocolName
      *
-     * @param  string $schema Default is rscf
      */
     public static function unregisterStreamWrapperClass()
     { 
@@ -69,15 +67,17 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     }
 
     /**
+     * Set the RackspaceApi Service.
      *
      * @param $service 
      */
-    public function setService($service)
+    public static function setService($service)
     { 
         self::$service = $service;
     }
 
     /**
+     * Get the RackspaceApi Service.
      *
      * @return service 
      */
@@ -86,9 +86,13 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         return self::$service;
     }
 
+    /**
+     *
+     * @throws NotImplementedDirectoryException
+     */
     public function dir_closedir()
     { 
-        throw new NotImplementedException(__FUNCTION__);
+        throw new NotImplementedDirectoryException(__FUNCTION__);
     }
 
 
@@ -96,29 +100,29 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path
      * @param $options
      *
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws NotImplementedDirectoryException
      */
     public function dir_opendir($path, $options)
     {
-        throw new NotImplementedException(__FUNCTION__);
+        throw new NotImplementedDirectoryException(__FUNCTION__);
     }
 
 
     /**
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws NotImplementedDirectoryException
      */
     public function dir_readdir()
     {
-        throw new NotImplementedException(__FUNCTION__);
+        throw new NotImplementedDirectoryException(__FUNCTION__);
     }
 
 
     /**
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws NotImplementedDirectoryException
      */
     public function dir_rewinddir()
     {
-        throw new NotImplementedException(__FUNCTION__);
+        throw new NotImplementedDirectoryException(__FUNCTION__);
     }
 
     /**
@@ -138,11 +142,22 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path_to
      * @return bool
      *
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws NotImplementedException
      */
     public function rename($path_from, $path_to)
-    {    // @todo
-        throw new NotImplementedException(__FUNCTION__);
+    { 
+        if( $this->unlink($path_from) ) {
+            $new_resource = $this->getService()->createResourceFromPath($path_to);
+        
+            if (!$new_resource) {
+                return false;
+            }
+
+            $this->setResource($new_resource);
+            return true;
+        }
+
+        return false;
     }
 
 
@@ -150,7 +165,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
      * @param $path
      * @param $options
      *
-     * @throws \Liuggio\RackspaceCloudFilesStreamWrapper\Exception\NotImplementedException
+     * @throws NotImplementedException
      */
     public function rmdir($path, $options)
     {
@@ -213,6 +228,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
             $mimetype = $this->getService()->guessFileType($this->getResource()->getResourceName());
             $object->content_type = $mimetype;
             $object->setData($buffer);
+            $object->extra_headers['Content-Type'] = $mimetype;
             $object->Create();
         }
 
@@ -236,7 +252,6 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
     { 
         throw new \BadFunctionCallException();
     }
-
 
     /**
      * @param $path
@@ -531,7 +546,7 @@ class RackspaceCloudFilesStreamWrapper implements StreamWrapperInterface
         return self::$stream_wrapper_register;
     }
     /**
-     * @param $stream_wrapper_register
+     * @param $stream_wrapper_unregister
      */
     public static function setStreamWrapperUnregisterFunction($stream_wrapper_unregister)
     {

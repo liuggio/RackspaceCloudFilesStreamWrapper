@@ -1,75 +1,200 @@
-Rackspace Streamwrapper for PHP
-=========================
+Introduction
+------------
 
+Rackspace Cloud Files bundle is a simple and easy way to use [RackspaceCloudFilesStreamWrapper](https://github.com/tvision/RackspaceCloudFilesStreamWrapper/tree/2.2) library with Symfony2 applications, but it has also some facilities for handle the static file with the rackspace cloud files.
 
-[![Build Status](https://secure.travis-ci.org/liuggio/RackspaceCloudFilesStreamWrapper.png)](http://travis-ci.org/liuggio/RackspaceCloudFilesStreamWrapper)
+This Bundle borns as fork of the escapestudios/EscapeRackspaceCloudFilesBundle, now these two bundles are very different.
 
+[![Build Status](https://secure.travis-ci.org/tvision/RackspaceCloudFilesStreamWrapper.png)](http://travis-ci.org/tvision/RackspaceCloudFilesStreamWrapper)
+[![Total Downloads](https://poser.pugx.org/tvision/rackspace-cloud-files-streamwrapper/downloads.png)](https://packagist.org/packages/tvision/rackspace-cloud-files-streamwrapper)
+[![Latest Stable Version](https://poser.pugx.org/tvision/rackspace-cloud-files-streamwrapper/v/stable.png)](https://packagist.org/packages/tvision/rackspace-cloud-files-streamwrapper)
+see the blog post for more detail
 
-Integration
------------
+[http://www.welcometothebundle.com/symfony2-assets-on-rackspace-cloud-files/](http://www.welcometothebundle.com/symfony2-assets-on-rackspace-cloud-files)
 
-see the Symfony2 Bundle that uses this library  https://github.com/liuggio/RackspaceCloudFilesBundle
+Installation (old school)
+-------------------------------
 
-Composer
--------
+see the blog post for more detail
 
-Just add this line to your composer
+deps:
 
-```json
+```
+[php-opencloud]
+    git=git://github.com/rackspace/php-opencloud.git
+    target=/rackspace/php-opencloud
 
-	"liuggio/rackspace-cloud-files-streamwrapper": "dev-master",
+[RackspaceCloudFilesBundle]
+    git=https://github.com/liuggio/RackspaceCloudFilesBundle.git
+    target=/bundles/Liuggio/RackspaceCloudFilesBundle
+
+[RackspaceCloudFilesStreamWrapper]
+    git=https://github.com/tvision/RackspaceCloudFilesStreamWrapper.git
+    target=rackspace-cloud-files-streamwrapper
 
 ```
 
+app/autoload.php
+
+```
+$loader->registerNamespaces(array(
+    //other namespaces
+    'Tvision\\RackspaceCloudFilesStreamWrapper' =>  __DIR__.'/../vendor/liuggio-rscf-streamwrapper/src',
+    'Tvision\\RackspaceCloudFilesBundle'        =>  __DIR__.'/../vendor/bundles',
+  ));
+
+```
+
+app/AppKernel.php
+
+```
+public function registerBundles()
+{
+    return array(
+        //other bundles
+        new Tvision\RackspaceCloudFilesBundle\LiuggioRackspaceCloudFilesBundle(),
+    );
+    ...
+```
+
+Installation Composer
+-------------------------------
+
+* 1 First, add the dependent bundles to the vendor/bundles directory. Add the following lines to the composer.json file
+
+```
+    "require": {
+    # ..
+    "liuggio/rackspace-cloud-files-bundle": ">=2.2",
+    # ..
+    }
+```
+
+* 2 Then run `composer install`
+
+
+* 3 Then add in your `app/AppKernel`
+
+``` php
+
+ class AppKernel extends Kernel
+ {
+     public function registerBundles()
+     {
+         $bundles = array(
+         // ...
+            new Tvision\RackspaceCloudFilesBundle\LiuggioRackspaceCloudFilesBundle(),
+         // ...
+
+```
+
+
+## Configuration
+
+app/config/config.yml
+
+```
+#  Rackspace Cloud Files configuration
+
+liuggio_rackspace_cloud_files:
+    service_class: Liuggio\RackspaceCloudFilesStreamWrapper\StreamWrapper\RackspaceCloudFilesStreamWrapper
+    stream_wrapper:
+        register: true  # do you want to register stream wrapper?
+#        protocol_name: rscf
+#        class: Liuggio\StreamWrapper\RackspaceCloudFilesStreamWrapper
+    auth:
+        username: YOUR-USERNAME
+        api_key: YOUR-API-KEY
+        host: https://lon.identity.api.rackspacecloud.com/v2.0 # or usa
+        container_name: YOUR-CONTAINER-NAME
+        region: LON
+```
+
+## Service(s)
+
+Get the Rackspace service to work with:
+
+```
+$auth = $this->get('liuggio_rackspace_cloud_files.service');
+
+```
+
+## Usage example without assetic
+See the [**test file**](https://github.com/tvision/RackspaceCloudFilesStreamWrapper/blob/2.2/tests/test_api.php) 
+
+
+## Usage example with assetic
+
+see
+
+http://www.welcometothebundle.com/symfony2-assets-on-rackspace-cloud-files/
+
+## Installing bundles assets (public directory) to cloudfiles with `rscf:assets:install` special console command
+
+```
+app/console rscf:assets:install rscf://my_container/my/path
+```
+
+This will copy assets just like the `assets:install` command would but directly to rackspace.
+**Note**: For those wondering why this command could be needed, note that assetic mainly handles js/css assets, and when
+ not using the cssembed filter, you still need to install images to your cloudfiles container. This command prevent you
+ from having to do that by hand.
+
+
+## Installing application assets (public directory) to cloudfiles with `assetic:install` special console command
+
+add this into the config.yml
+
+```
+assetic:
+    debug: false
+    use_controller: false
+    write_to: rsfc://%rackspace_container_name%
+```
+
+Type to the console
+
+```
+app/console assetic:dump
+```
 
 Requirements
 ------------
 
 - PHP > 5.3.0
 
+- rackspace/php-cloudfiles.git
 
-Run tests
----------
+- liuggio/RackspaceCloudFilesStreamWrapper
 
-1. clone the repository
-2. run `phpunit` from within the cloned project folder
+- Symfony2
 
-Please note that the library has been tested on a Mac OS X 10.7 with the bundled PHP 5.3.6 (git version 1.7.6), on several Ubuntu Linux installations and on Windows Vista running PHP 5.3.7 (1.7.6.msysgit.0). Due to currently unknown reasons the test run a bit unstable on Windows. All tests should be *green* but during cleanup there may be the possibility that some access restrictions randomly kick in and prevent the cleanup code from removing the test directories. 
-
-The unit test suite is continuously tested with [Travis CI](http://travis-ci.org/) on PHP 5.3 and 5.4 and its current status is.
 
 Contribute
 ----------
 
 Please feel free to use the Git issue tracking to report back any problems or errors. You're encouraged to clone the repository and send pull requests if you'd like to contribute actively in developing the library.
+than add your name to this file under the contributor section
+
+
+Contributor
+------------
+
+- thanks for cystbear for the tips
+
+- the bundle is a reengeneering of the escapestudios/EscapeRackspaceCloudFilesBundle
+
+
+1. liuggio
+
+2. benjamindulau
+
+3. toretto460
+
 
 License
 -------
 
-Copyright (C) 2012 by liuggio
+This bundle is under the MIT license. See the complete license in the bundle:
 
-Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
-
-To do
------
-
-Please feel free to fork and support this library
-
-Better handling of directory :
-
--   public function dir_opendir($path, $options) //nested list object with paths
-
--   public function dir_readdir()  //nested list object with paths
-
--   public function dir_rewinddir()  //nested list object with paths
-
--   public function rename($path_from, $path_to)  //nested list object with paths
-
--   public function rmdir($path, $options)  //nested list object with paths
-
--   private function statCurrentResource()  // understand if is a dir  from the "Content-Type of "application/directory"
+    Resources/meta/LICENSE

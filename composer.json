@@ -1,8 +1,8 @@
 {
-    "name":        "liuggio/rackspace-cloud-files-streamwrapper",
+    "name":        "tvision/rackspace-cloud-files-streamwrapper",
     "description": "Rackspace Cloud Files Streamwrapper for PHP",
     "keywords":    ["rackspace", "streamwrapper", "cloud", "rackspace cloud files"],
-    "homepage":    "https://github.com/liuggio/RackspaceCloudFilesStreamWrapper",
+    "homepage":    "https://github.com/tvision/RackspaceCloudFilesStreamWrapper",
     "type":        "library",
     "license":     "MIT",
     "authors":     [
@@ -12,16 +12,22 @@
             "homepage": "https://github.com/liuggio"
         },
         {
+            "name": "toretto460",
+            "email": "toretto460@gmail.com",
+            "homepage": "http://toretto.me/"
+        },
+        {
             "name": "tvision contributions",
             "homepage": "https://github.com/tvision"
         }
     ],
     "require":     {
-        "php": ">=5.3.0"
+        "php": ">=5.3.0",
+        "rackspace/php-opencloud": "1.6.*"
     },
     "autoload":    {
         "psr-0": {
-            "Liuggio\\RackspaceCloudFilesStreamWrapper": "src/"
+            "Tvision\\RackspaceCloudFilesStreamWrapper": "src/"
         }
     },
     "target-dir": ""

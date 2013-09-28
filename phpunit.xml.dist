@@ -13,14 +13,14 @@
 >
  
     <testsuites>
-        <testsuite name="liuggio/RackspaceCloudFilesStreamWrapper Test Suite">
-            <directory>./tests/Liuggio/</directory>
+        <testsuite name="tvision/RackspaceCloudFilesStreamWrapper Test Suite">
+            <directory>./tests/Tvision/</directory>
         </testsuite>
     </testsuites>
 
     <filter>
         <whitelist>
-            <directory>./src/Liuggio/</directory>
+            <directory>./src/Tvision/</directory>
         </whitelist>
     </filter>
 </phpunit>

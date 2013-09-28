@@ -1,6 +1,6 @@
 <?php
 
-namespace Liuggio\RackspaceCloudFilesStreamWrapper;
+namespace Tvision\RackspaceCloudFilesStreamWrapper\Model;
 
 /**
  * Description of RSCFResource

@@ -1,8 +1,8 @@
 <?php
 
-namespace  Liuggio\RackspaceCloudFilesStreamWrapper;
+namespace  Tvision\RackspaceCloudFilesStreamWrapper\Model;
 
-use \OpenCloud\ObjectStore\Container;
+use \OpenCloud\ObjectStore\Resource\Container;
 
 /**
  * Description of RackspaceCloudFilesServiceInterface
